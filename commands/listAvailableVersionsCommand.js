@@ -13,17 +13,17 @@ module.exports = function (cmd, options) {
         logger.trace('versions is', versions);
         gotResult = true;
         var output = table(_.map(versions, function (value) {
-            return [chalk.cyan(value.id), new Date(value.timestamp)]
+            return [chalk.cyan(value.id), isNaN(parseInt(value.timestamp)) ? '' :  new Date(value.timestamp), value.source ]
         }));
-        logger.trace(output);
+        console.log(output);
         //logger.info(versions);
 
-        logger.trace()
+        console.log()
     });
 
     setTimeout(function(){
         if ( !gotResult ) {
-            logger.trace('\n\n\t', logSymbols.info, chalk.blue('fetching versions from pypi'), '\n\n');
+            console.log('\n\n\t', logSymbols.info, chalk.blue('fetching versions from pypi'), '\n\n');
         }
     }, 0);
 

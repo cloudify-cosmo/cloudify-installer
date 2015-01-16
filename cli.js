@@ -37,7 +37,6 @@ var packageInfo = require(path.join(__dirname,'package.json'));
  * @param command root of all commands to start walking on and add --verbose option.
  */
 function addVerbose(command){ //guy - todo - change with command('*') once bug resolved. see https://github.com/tj/commander.js/issues/314
-    console.log('add verbose');
     command.option('-v, --verbose', 'verbose', function(){
             console.log('verbose was requested!!');
             log4js.configure({ "appenders" : [
@@ -52,7 +51,7 @@ function addVerbose(command){ //guy - todo - change with command('*') once bug r
 
 
 program
-    .version( packageInfo.version )
+    .version( packageInfo.version );
 
 
     //program//.option('-v','--version','print version')
