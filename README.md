@@ -11,7 +11,7 @@ sudo npm -g install guy-mograbi-at-gigaspaces/cloudify-installer
 
  - The library supports auto-complete.
  - We test the library on ubuntu first.
-
+ - You can also use this library as a dependency in your project.
 
 # Commands
 

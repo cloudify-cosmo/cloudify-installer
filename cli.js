@@ -1,9 +1,16 @@
 #!/usr/bin/env node
 
-var logger = require('log4js').getLogger('index');
+
+var log4js = require('log4js');
+log4js.configure({ "appenders" : [
+    { "type" : "console" }
+],levels: {
+    '[all]': 'INFO'
+}});
 var program = require('commander');
 var commands = require('./commands');
 var tabtab = require('tabtab');
+var _ = require('lodash');
 
 
 
@@ -23,14 +30,38 @@ if(process.argv.slice(2)[0] === 'completion') return tabtab.complete('cloudify-i
 var path = require('path');
 var packageInfo = require(path.join(__dirname,'package.json'));
 
+function verbose() {
+    log4js.configure();
+
+}
+
+function addVerbose(command){
+    command.option('-v,--verbose', 'verbose').on('-v,--verbose', function () {
+        log4js.configure({
+            "appenders": [
+                {"type": "console"}
+            ], levels: {
+                '[all]': 'TRACE'
+            }
+        });
+    });
+
+    _.each(command.commands, addVerbose);
+}
+
 
 program
     .version( packageInfo.version )
-    //.option('-v','--version','print version')
-    .command('list-available')
+
+
+    //program//.option('-v','--version','print version')
+    program.command('list-available')
     .alias('lsa')
+
     .description('list available versions')
     .action( commands.listAvailableVersions );
+
+addVerbose(program);
 program.parse(process.argv);
 
 
