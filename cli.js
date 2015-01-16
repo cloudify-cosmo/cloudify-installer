@@ -30,21 +30,20 @@ if(process.argv.slice(2)[0] === 'completion') return tabtab.complete('cloudify-i
 var path = require('path');
 var packageInfo = require(path.join(__dirname,'package.json'));
 
-function verbose() {
-    log4js.configure();
 
-}
 
 function addVerbose(command){
-    command.option('-v,--verbose', 'verbose').on('-v,--verbose', function () {
-        log4js.configure({
-            "appenders": [
-                {"type": "console"}
-            ], levels: {
+    console.log('add verbose');
+    command.option('-v, --verbose', 'verbose', function(){
+
+            console.log('verbose was requested!!');
+            log4js.configure({ "appenders" : [
+                { "type" : "console" }
+            ],levels: {
                 '[all]': 'TRACE'
-            }
-        });
-    });
+            }});
+
+    }, false);
 
     _.each(command.commands, addVerbose);
 }
@@ -62,6 +61,9 @@ program
     .action( commands.listAvailableVersions );
 
 addVerbose(program);
+
+
+
 program.parse(process.argv);
 
 
