@@ -31,11 +31,14 @@ var path = require('path');
 var packageInfo = require(path.join(__dirname,'package.json'));
 
 
-
-function addVerbose(command){
+/**
+ * iterate over all commands and subcommands
+ * add option 'verbose' with handler to change log level.
+ * @param command root of all commands to start walking on and add --verbose option.
+ */
+function addVerbose(command){ //guy - todo - change with command('*') once bug resolved. see https://github.com/tj/commander.js/issues/314
     console.log('add verbose');
     command.option('-v, --verbose', 'verbose', function(){
-
             console.log('verbose was requested!!');
             log4js.configure({ "appenders" : [
                 { "type" : "console" }
@@ -44,7 +47,6 @@ function addVerbose(command){
             }});
 
     }, false);
-
     _.each(command.commands, addVerbose);
 }
 
@@ -60,8 +62,7 @@ program
     .description('list available versions')
     .action( commands.listAvailableVersions );
 
-addVerbose(program);
-
+addVerbose(program); // add --verbose to all commands and subcommands.
 
 
 program.parse(process.argv);
