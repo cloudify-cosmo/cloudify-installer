@@ -4,21 +4,32 @@ var _ = require('lodash');
 var table = require('text-table');
 var chalk = require('chalk');
 var logSymbols = require('log-symbols');
+var stringLength = require('string-length');
 
-module.exports = function (cmd, options) {
+var dateFormat = require('dateformat');
+
+module.exports = function (/*cmd, options*/) {
 
 
     var gotResult = false;
     actions.listAvailableVersions(function (err, versions) {
         logger.trace('versions is', versions);
         gotResult = true;
-        var output = table(_.map(versions, function (value) {
-            return [chalk.cyan(value.id), isNaN(parseInt(value.timestamp)) ? '' :  new Date(value.timestamp), value.source ]
-        }));
-        console.log(output);
-        //logger.info(versions);
 
-        console.log()
+        var headers = [ chalk.underline('version'),chalk.underline('release date'), chalk.underline('source')];
+        var lines = _.map(versions, function (value) {
+            var releaseDate = '';
+            if (!isNaN(parseInt(value.timestamp)) ) {
+                releaseDate = dateFormat(new Date(value.timestamp), 'mmm-dd-yyyy');
+            }
+
+            return [ chalk.blue(value.id), chalk.white(releaseDate), chalk.white(value.source) ];
+        });
+
+
+        lines = [headers].concat(lines);
+
+        console.log(table(lines, { stringLength : stringLength, align:'l' ,hsep:'\t\t'}));
     });
 
     setTimeout(function(){
