@@ -54,14 +54,17 @@ function addVerbose(command){ //guy - todo - change with command('*') once bug r
 
 program
     .version( packageInfo.version );
-
-
     //program//.option('-v','--version','print version')
-    program.command('list-available')
-    .alias('lsa')
 
+program.command('list-available')
+    .alias('lsa')
     .description('list available versions')
     .action( commands.listAvailableVersions );
+
+program.command('show-version')
+    .alias('svr')
+    .description('show specific version')
+    .action( commands.showVersion );
 
 addVerbose(program); // add --verbose to all commands and subcommands.
 
