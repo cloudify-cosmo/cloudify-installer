@@ -65,6 +65,10 @@ inputs:
   agents_security_group:
     type: string
     default: 'cloudify-sg-agents'
+    
+  management_security_group:
+    type: string
+    default: 'cloudify-sg-management'
 
   use_existing_manager_keypair:
     type: boolean
@@ -172,7 +176,7 @@ node_templates:
   management_security_group:
     type: cloudify.openstack.nodes.SecurityGroup
     properties:
-      resource_id: cloudify-sg-management
+      resource_id: { get_input: management_security_group }
       security_group:
         description: Security group for Cloudify Management VM
       rules:
