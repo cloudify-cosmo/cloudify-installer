@@ -40,13 +40,14 @@ var packageInfo = require(path.join(__dirname,'package.json'));
  */
 function addVerbose(command){ //guy - todo - change with command('*') once bug resolved. see https://github.com/tj/commander.js/issues/314
     command.option('-v, --verbose', 'verbose', function(){
-            console.log('verbose was requested!!');
-            log4js.configure({ "appenders" : [
-                { "type" : "console" }
-            ],levels: {
+        log4js.configure({
+            appenders: [
+                {"type" : "console"}
+            ],
+            levels: {
                 '[all]': 'TRACE'
-            }});
-
+            }
+        });
     }, false);
     _.each(command.commands, addVerbose);
 }
@@ -55,6 +56,7 @@ function addVerbose(command){ //guy - todo - change with command('*') once bug r
 program
     .version( packageInfo.version );
     //program//.option('-v','--version','print version')
+
 
 program.command('list-available')
     .alias('lsa')
@@ -66,8 +68,15 @@ program.command('show-version')
     .description('show specific version')
     .action( commands.showVersion );
 
-addVerbose(program); // add --verbose to all commands and subcommands.
+program.command('install [version] [config]')
+    .description('install cloudify')
+    .option('-env, --virtualenv [name]', 'Install it on virtualenv')
+    .option('-i, --inputs [path]', 'provide inputs')
+    .option('-p, --prefix [name]', 'define prefix')
+    .option('-t, --tag [tag]', 'install tag version from github')
+    .action( commands.install );
 
+addVerbose(program); // add --verbose to all commands and subcommands.
 
 program.parse(process.argv);
 
