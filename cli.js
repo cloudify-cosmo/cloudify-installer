@@ -66,6 +66,13 @@ program.command('show-version')
     .description('show specific version')
     .action( commands.showVersion );
 
+program.command('install [version] [config]')
+    .description('install cloudify')
+    .option('-env, --virtualenv [name]', 'Install it on virtualenv')
+    .option('-i, --inputs [path]', 'provide inputs')
+    .option('-p, --prefix [name]', 'define prefix')
+    .action( commands.install );
+
 addVerbose(program); // add --verbose to all commands and subcommands.
 
 

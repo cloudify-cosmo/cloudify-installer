@@ -32,7 +32,10 @@
     "commander": "~2.6.0",
     "tabtab": "https://github.com/mklabs/node-tabtab/tarball/master",
     "node-rest-client": "~1.4.3",
-    "dateformat": "~1.0.11"
+    "dateformat": "~1.0.11",
+    "async": "~0.9.0",
+    "simple-spinner": "0.0.2",
+    "yamljs": "~0.2.1"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.10.0",
