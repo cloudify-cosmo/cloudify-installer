@@ -74,6 +74,7 @@ program.command('install [version] [config]')
     .option('-i, --inputs [path]', 'provide inputs')
     .option('-p, --prefix [name]', 'define prefix')
     .option('-t, --tag [tag]', 'install tag version from github')
+    .option('-m, --manager-type [type]', 'choose which manager type to use for bootstrap, default: openstack')
     .action( commands.install );
 
 addVerbose(program); // add --verbose to all commands and subcommands.
