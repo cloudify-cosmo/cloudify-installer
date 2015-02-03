@@ -70,7 +70,7 @@ program.command('show-version')
 
 program.command('install [version] [config]')
     .description('install cloudify')
-    .option('-env, --virtualenv [name]', 'Install it on virtualenv')
+    .option('-n, --no-env', 'install without virtualenv', false, true)
     .option('-i, --inputs [path]', 'provide inputs')
     .option('-p, --prefix [name]', 'define prefix')
     .option('-t, --tag [tag]', 'install tag version from github')
