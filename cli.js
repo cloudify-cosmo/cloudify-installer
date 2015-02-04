@@ -65,15 +65,15 @@ program.command('list-available')
 
 program.command('show-version')
     .alias('svr')
-    .description('show specific version')
+    .description('show-version <version>')
     .action( commands.showVersion );
 
-program.command('install [version] [config]')
+program.command('install <version>')
     .description('install cloudify')
     .option('-n, --no-env', 'install without virtualenv', false, true)
-    .option('-i, --inputs [path]', 'provide inputs')
-    .option('-p, --prefix [name]', 'define prefix')
-    .option('-t, --tag [tag]', 'install tag version from github')
+    .option('-i, --inputs <path>', 'provide inputs')
+    .option('-p, --prefix <name>', 'define prefix')
+    .option('-t, --tag <tag>', 'install tag version from github')
     .option('-m, --manager-type [type]', 'choose which manager type to use for bootstrap, default: openstack')
     .action( commands.install );
 
