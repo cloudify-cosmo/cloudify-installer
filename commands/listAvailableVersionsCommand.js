@@ -10,7 +10,6 @@ var dateFormat = require('dateformat');
 
 module.exports = function (/*cmd, options*/) {
 
-
     var gotResult = false;
     actions.listAvailableVersions(function (err, versions) {
         logger.trace('versions is', versions);

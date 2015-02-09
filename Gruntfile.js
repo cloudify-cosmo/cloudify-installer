@@ -1,10 +1,13 @@
 'use strict';
 
 module.exports = function(grunt) {
+
     // Show elapsed time at the end
     require('time-grunt')(grunt);
     // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
+    // Load cfy tasks
+    require('./tasks/cfy')(grunt);
 
     // Project configuration.
     grunt.initConfig({
@@ -58,6 +61,29 @@ module.exports = function(grunt) {
             test: {
                 files: '<%= jshint.test.src %>',
                 tasks: ['jshint:test', 'mochacli']
+            }
+        },
+        'cfy-install': {
+            options: {
+                
+            },
+            staging: {
+                options: {
+                    version: '3.1',
+                    inputs: '/home/itsik/virtualenvs/3.1/inputs.json'
+                }
+            }
+        },
+        cfy: {
+            'list-available': {
+                options: {
+                    
+                }
+            },
+            'show-version': {
+                options: {
+
+                }
             }
         }
     });
