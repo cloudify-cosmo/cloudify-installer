@@ -55,8 +55,6 @@ function addVerbose(command){ //guy - todo - change with command('*') once bug r
 
 program
     .version( packageInfo.version );
-    //program//.option('-v','--version','print version')
-
 
 program.command('list-available')
     .alias('lsa')
@@ -77,12 +75,18 @@ program.command('install <version>')
     .option('-m, --manager-type [type]', 'choose which manager type to use for bootstrap, default: openstack')
     .action( commands.install );
 
+program.command('teardown')
+    .description('teardown cloudify')
+    .option('-p, --prefix [name]', 'define prefix')
+    .option('-n, --no-env', 'install without virtualenv', false, true)
+    .action( commands.teardown );
+
+program.command('clean')
+    .description('clean cloudify installer')
+    .option('-p, --prefix [name]', 'define prefix')
+    .option('-n, --no-env', 'install without virtualenv', false, true)
+    .action( commands.clean );
+
 addVerbose(program); // add --verbose to all commands and subcommands.
 
 program.parse(process.argv);
-
-
-
-
-
-
