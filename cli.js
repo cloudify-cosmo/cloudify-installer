@@ -21,10 +21,10 @@ if(process.argv.slice(2)[0] === 'completion') {
         // stderr not showing on completions
         if (err || !data) { return; }
 
-        if (/^--\w?/.test(data.last)) { return  tabtab.log(['help', 'version'], data, '--'); }
-        if (/^-\w?/.test(data.last)) { return  tabtab.log(['n', 'o', 'd', 'e'], data, '-'); }
+        if (/^--\w?/.test(data.last)) { return  tabtab.log(['help', 'version', 'verbose'], data, '--'); }
+        if (/^-\w?/.test(data.last)) { return  tabtab.log(['h', 'V', 'v'], data, '-'); }
 
-        tabtab.log(['list', 'of', 'commands'], data);
+        tabtab.log(['list-available', 'show-version', 'install', 'teardown', 'clean'], data);
     });
 }
 
