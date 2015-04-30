@@ -91,5 +91,5 @@ module.exports = function(grunt) {
     // Default task.
     grunt.registerTask('default', ['fixmyjs','jshint', 'mochacli']);
 
-    grunt.registerTak('test',['default']);
+    grunt.registerTask('test',['default']);
 };
