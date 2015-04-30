@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "install": "(cloudify-installer completion > /etc/bash_completion.d/cloudify-installer &&  bash /etc/bash_completion.d/cloudify-installer) || echo 'no completion available for this kind of installation' "
+    "install": "(sudo mkdir /etc/bash_completion.d || echo 'completion directory already exists' ) && (sudo cloudify-installer completion > tmpfile && sudo mv tmpfile /etc/bash_completion.d/cloudify-installer &&  bash /etc/bash_completion.d/cloudify-installer) || echo 'no completion available for this kind of installation' "
   },
   "repository": {
     "type": "git",
