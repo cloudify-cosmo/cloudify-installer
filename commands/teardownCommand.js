@@ -5,6 +5,7 @@ var logger = require('log4js').getLogger('teardownCommand');
 var notif = require('../lib/models').Notifications;
 
 module.exports = function(options) {
+    logger.trace('tearing down..');
     actions.teardown(options, function(err){
         if(err) {
             notif.faild(err);

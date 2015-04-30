@@ -2,9 +2,9 @@
 
 
 var commands = require('../commands');
-var actions = require('../lib/actions')
-var cfyShowVersion = require('../lib/actions').showVersion;
-var cfyInstall = require('../lib/actions').install;
+var actions = require('../lib/actions');
+//var cfyShowVersion = require('../lib/actions').showVersion;
+//var cfyInstall = require('../lib/actions').install;
 
 module.exports = function (grunt) {
     
