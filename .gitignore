@@ -2,3 +2,4 @@ dev
 .idea
 node_modules
 undefined
+build/vagrant/.vagrant

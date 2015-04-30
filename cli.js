@@ -12,6 +12,10 @@ var commands = require('./commands');
 var tabtab = require('tabtab');
 var _ = require('lodash');
 
+if ( process.argv.length <= 2 ){
+    process.argv.push('-h');
+}
+
 
 
 
