@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "install": "(sudo cloudify-installer completion > tmpfile && sudo mv tmpfile /etc/bash_completion.d/cloudify-installer &&  bash /etc/bash_completion.d/cloudify-installer) || echo 'no completion available for this kind of installation' "
+    "install": "sudo `pwd`/enable_autocomplete.sh"
   },
   "repository": {
     "type": "git",
