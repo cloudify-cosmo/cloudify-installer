@@ -2,18 +2,21 @@
 var logger = require('log4js').getLogger('runScriptCommand');
 var _ = require('lodash');
 var notif = require('../lib/models').Notifications;
+var path = require('path');
 
 module.exports = function() {
 
     var args = [];
     try {
-        console.log(arguments);
         args = [].splice.call(arguments,0, arguments.length-1);
-        logger.trace('args',args);
     }catch(e){ }
 
     var opts = arguments[arguments.length-1];
-    args = [].concat(opts.script,args);
+    var script = opts.script;
+    if ( script.indexOf('/') !== 0 ){
+        script = path.join(__dirname, '..', 'scripts', script);
+    }
+    args = [].concat(script,args);
     //logger.trace('running script...', arguments);
     run_cmd({ cmd : 'bash', args : args , options : {} }, function(err){
         if ( !!err ) {
