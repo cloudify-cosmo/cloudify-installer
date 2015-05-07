@@ -36,7 +36,8 @@
     "simple-spinner": "0.0.2",
     "yamljs": "~0.2.1",
     "q": "~1.3.0",
-    "cloudify-js": "git://github.com/cloudify-cosmo/cloudify-js"
+    "cloudify-js": "git://github.com/cloudify-cosmo/cloudify-js",
+    "request": "~2.55.0"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.10.0",
