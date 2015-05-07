@@ -5,6 +5,8 @@ require('../lib/tasks/utils/EasyRunCommand');
 var commands = require('../commands');
 var actions = require('../lib/actions');
 var logger = require('log4js').getLogger('grunt-cfy');
+var path = require('path');
+var fs = require('fs');
 //var cfyShowVersion = require('../lib/actions').showVersion;
 //var cfyInstall = require('../lib/actions').install;
 
@@ -16,8 +18,25 @@ module.exports = function (grunt) {
         try {
             switch (data.cmd) {
                 case 'run_script' :
+
+                    if ( this.data.script.indexOf('/') !== 0){
+                        this.data.script = path.join(__dirname,'..','scripts', this.data.script );
+                    }
+
+                    if ( !fs.existsSync(this.data.script) ){
+                        grunt.log.error('script ', this.data.script ,'does not exist');
+                        done(false);
+                    }
                     // args should have 'options' , 'cmd' and 'args'. see run_cmd
-                    run_cmd(this.args, done);
+                    run_cmd({
+                            'cmd': 'bash',
+                            args: [].concat(this.data.script, this.data.args),
+                            options: this.data.options
+                        },
+                        function (e, output) {
+                            logger.error('script finished', e, output);
+                            done();
+                        });
                     break;
                 case 'list-available':
                     commands.listAvailableVersions().then(function () {

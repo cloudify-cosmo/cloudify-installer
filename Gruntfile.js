@@ -63,24 +63,23 @@ module.exports = function(grunt) {
                 tasks: ['jshint:test', 'mochacli']
             }
         },
-        'cfy-install': {
-            options: {
-                
-            },
-            staging: {
-                options: {
-                    version: '3.1',
-                    inputs: '/home/itsik/virtualenvs/3.1/inputs.json'
-                }
-            }
-        },
-        cfy: {
 
+        cfy: {
             'test-list-available': {
                 cmd: 'list-available'
             },
             'test-show-version': {
                 cmd: 'show-version'
+            },
+            'test-install' : {
+                cmd: 'run_script',
+                'script' : '3.2.0/vagrant_install_simple.sh',
+                'args' : [],
+                options: {
+                    env: {
+
+                    }
+                }
             }
         }
     });
