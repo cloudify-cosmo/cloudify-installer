@@ -16,7 +16,8 @@ module.exports = function (grunt) {
 
         switch(data.cmd) {
             case 'run_script' :
-                run_cmd( this.args || [], done );
+                // args should have 'options' , 'cmd' and 'args'. see run_cmd
+                run_cmd( this.args , done );
                 break;
             case 'list-available':
                 commands.listAvailableVersions().then(function(){
