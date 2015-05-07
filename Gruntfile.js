@@ -75,18 +75,17 @@ module.exports = function(grunt) {
             }
         },
         cfy: {
-            'list-available': {
-                options: {
-                    
-                }
-            },
-            'show-version': {
-                options: {
 
-                }
+            'test-list-available': {
+                cmd: 'list-available'
+            },
+            'test-show-version': {
+                cmd: 'show-version'
             }
         }
     });
+
+    grunt.loadTasks('tasks'); // load the grunt task for the installer
 
     // Default task.
     grunt.registerTask('default', ['fixmyjs','jshint', 'mochacli']);

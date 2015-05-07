@@ -2,6 +2,7 @@
 
 
 var log4js = require('log4js');
+require('./tasks/utils');
 log4js.configure({ "appenders" : [
     { "type" : "console" }
 ],levels: {
@@ -15,9 +16,6 @@ var _ = require('lodash');
 if ( process.argv.length <= 2 ){
     process.argv.push('-h');
 }
-
-
-
 
 if(process.argv.slice(2)[0] === 'completion') {
     return tabtab.complete('cloudify-installer', function (err, data) {

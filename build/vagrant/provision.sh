@@ -29,6 +29,7 @@ fi
 sudo npm uninstall -g cloudify-installer || echo "no need to uninstall"
 ## it seems that the "install" script in npm does not work properly when run with vagrant/provision.
 ## my solution is to disable the script on install and then run it manually.
-sudo npm install -g cloudify-cosmo/cloudify-installer --ignore-scripts
+sudo npm install -g cloudify-cosmo/cloudify-installer grunt-cli --ignore-scripts
+sudo npm cache clean
 sudo /usr/lib/node_modules/cloudify-installer/enable_autocomplete.sh
 

@@ -5,10 +5,12 @@ var table = require('text-table');
 var chalk = require('chalk');
 var logSymbols = require('log-symbols');
 var stringLength = require('string-length');
+var q = require('q');
 
 var dateFormat = require('dateformat');
 
 module.exports = function (/*cmd, options*/) {
+    var deferred = q.defer();
 
     var gotResult = false;
     actions.listAvailableVersions(function (err, versions) {
@@ -29,6 +31,7 @@ module.exports = function (/*cmd, options*/) {
         lines = [headers].concat(lines);
 
         console.log(table(lines, { stringLength : stringLength, align:'l' ,hsep:'\t\t'}));
+        deferred.resolve();
     });
 
     setTimeout(function(){
@@ -37,5 +40,5 @@ module.exports = function (/*cmd, options*/) {
         }
     }, 0);
 
-
+    return deferred.promise;
 };

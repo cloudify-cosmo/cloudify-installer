@@ -1,0 +1,10 @@
+{
+  "name": "cloudify-installer-manual-test-playground",
+  "version": "0.0.0",
+  "description": "an environment to test the cloudify installer",
+  "dependencies": {
+    "cloudify-installer": "git://github.com/cloudify-cosmo/cloudify-installer",
+    "grunt" : "*",
+    "load-grunt-tasks" : "*"
+  }
+}

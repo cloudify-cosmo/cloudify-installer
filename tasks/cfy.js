@@ -1,8 +1,10 @@
 'use strict';
 
 
+require('../lib/tasks/utils/EasyRunCommand');
 var commands = require('../commands');
 var actions = require('../lib/actions');
+var logger = require('log4js').getLogger('grunt-cfy');
 //var cfyShowVersion = require('../lib/actions').showVersion;
 //var cfyInstall = require('../lib/actions').install;
 
@@ -10,18 +12,20 @@ module.exports = function (grunt) {
     
     grunt.registerMultiTask('cfy', 'cloudify-installer', function () {
         var done = this.async();
-        var target = this.target;
-        var args = this.args;
-        
-        switch(target) {
-            case 'list-available':
-                commands.listAvailableVersions();
-                done();
+        var data = this.data;
+
+        switch(data.cmd) {
+            case 'run_script' :
+                run_cmd( this.args, done );
                 break;
-            
+            case 'list-available':
+                commands.listAvailableVersions().then(function(){
+                    done();
+                });
+                break;
             case 'show-version':
-                var version = args[0];
-                actions.showVersion(version, function(err, result){
+                logger.trace('executing show version');
+                actions.showVersion(data.version || '3.2', function(err, result){
                     if(err) {
                         console.log(result.error);
                         done(false);
