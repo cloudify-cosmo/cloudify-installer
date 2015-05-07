@@ -2,7 +2,7 @@
 
 
 var log4js = require('log4js');
-require('./tasks/utils');
+require('./lib/tasks/utils');
 log4js.configure({ "appenders" : [
     { "type" : "console" }
 ],levels: {
@@ -76,6 +76,11 @@ program.command('install <version>')
     .option('-t, --tag <tag>', 'install tag version from github')
     .option('-m, --manager-type [type]', 'choose which manager type to use for bootstrap, default: openstack')
     .action( commands.install );
+
+program.command('run_script')
+    .description('runs scripts')
+    .option('-s, --script <script>', 'the script path')
+    .action( commands.runScript );
 
 program.command('teardown')
     .description('teardown cloudify')
