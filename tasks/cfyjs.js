@@ -4,7 +4,7 @@
 var commands = require('../commands');
 var actions = require('../lib/actions');
 var logger = require('log4js').getLogger('grunt-cfy');
-var cfyjs = require('cfyjs');
+var cfyjs = require('cloudify-js');
 //var cfyShowVersion = require('../lib/actions').showVersion;
 //var cfyInstall = require('../lib/actions').install;
 
