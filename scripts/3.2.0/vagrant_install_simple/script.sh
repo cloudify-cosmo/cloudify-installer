@@ -18,4 +18,7 @@ cfy init
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ''
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-cfy bootstrap -v -p manager_blueprint/blueprint_aws_commercial.yaml -i inputs.yaml --install-plugins --keep-up-on-failure
+
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cfy bootstrap -v -p $DIR/manager_blueprint/blueprint_aws_commercial.yaml -i $DIR/inputs.yaml --install-plugins --keep-up-on-failure
