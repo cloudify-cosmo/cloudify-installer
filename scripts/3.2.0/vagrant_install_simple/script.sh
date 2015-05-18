@@ -21,4 +21,13 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-cfy bootstrap -v -p $DIR/manager_blueprint/blueprint_aws_commercial.yaml -i $DIR/inputs.yaml --install-plugins --keep-up-on-failure
+
+COMMERCIAL_TARZAN_PACKAGE_URL="http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/3.2.0/m8-RELEASE/cloudify-docker-commercial_3.2.0-m8-b178.tar"
+
+if curl --output /dev/null --silent --head --fail "COMMERCIAL_TARZAN_PACKAGE_URL"; then
+  BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_tarzan_commercial.yaml"
+else
+  BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_aws_commercial.yaml"
+fi
+
+cfy bootstrap -v -p $BLUEPRINT_FILE  -i $DIR/inputs.yaml --install-plugins --keep-up-on-failure
