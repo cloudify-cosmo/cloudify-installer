@@ -30,4 +30,6 @@ else
   BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_aws_commercial.yaml"
 fi
 
+echo "blueprint file name is $BLUEPRINT_FILE"
+
 cfy bootstrap -v -p $BLUEPRINT_FILE  -i $DIR/inputs.yaml --install-plugins --keep-up-on-failure
