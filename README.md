@@ -6,14 +6,14 @@ a node tool to easily install cloudify and other goods
 # Installation
 
 ```
-sudo npm -g install guy-mograbi-at-gigaspaces/cloudify-installer
+sudo npm -g install cloudify-cosmo/cloudify-installer
 ```
 
  - The library supports auto-complete.
  - We test the library on ubuntu first.
  - You can also use this library as a dependency in your project.
 
-## Autocomplete throws exception
+## Autocomplete throws exception?
 
 you can install the module with `--ignore-scripts` to ignore the autocomplete script on install
 
@@ -45,7 +45,7 @@ for more details regarding the tasks available, please see `tasks` folder.
  cfy: {
      install: {
          'cmd' : 'run_script',
-         'script' : '3.2.0/vagrant_install_simple.sh',
+         'script' : '3.2.0/vagrant_install_simple/script.sh',
          'args' : [],
          options: {
              env: {
@@ -57,7 +57,7 @@ for more details regarding the tasks available, please see `tasks` folder.
 ```
 ## Using Command-line
 
-`cloudify-installer run_script -s 3.2.0/vagrant_install_simple.sh`
+`cloudify-installer run_script -s 3.2.0/vagrant_install_simple/script.sh`
 
 # Commands
 
