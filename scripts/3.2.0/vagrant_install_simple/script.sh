@@ -1,7 +1,7 @@
 ####
-
-A script to install cloudify using the simple blueprint
-
+#
+# A script to install cloudify using the simple blueprint
+#
 ###
 
 if [ "$APT_GET_UPDATE" = "true" ]; then
@@ -24,7 +24,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 COMMERCIAL_TARZAN_PACKAGE_URL="http://192.168.10.13/builds/GigaSpacesBuilds/cloudify3/3.2.0/m8-RELEASE/cloudify-docker-commercial_3.2.0-m8-b178.tar"
 
-if curl --output /dev/null --silent --head --fail "COMMERCIAL_TARZAN_PACKAGE_URL"; then
+if curl --output /dev/null --silent --head --fail "$COMMERCIAL_TARZAN_PACKAGE_URL"; then
   BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_tarzan_commercial.yaml"
 else
   BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_aws_commercial.yaml"
