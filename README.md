@@ -37,6 +37,27 @@ To use this module from grunt you need to do the following
 
 for more details regarding the tasks available, please see `tasks` folder.
 
+# Installing cloudify with simple blueprint with installer
+
+## Using Gruntfile
+
+```
+ cfy: {
+     install: {
+         'cmd' : 'run_script',
+         'script' : '3.2.0/vagrant_install_simple.sh',
+         'args' : [],
+         options: {
+             env: {
+
+             }
+         }
+     }
+ },
+```
+## Using Command-line
+
+`cloudify-installer run_script -s 3.2.0/vagrant_install_simple.sh`
 
 # Commands
 
