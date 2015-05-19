@@ -3,3 +3,5 @@ dev
 node_modules
 undefined
 build/vagrant/.vagrant
+build/vagrant/aws
+build/vagrant/util
