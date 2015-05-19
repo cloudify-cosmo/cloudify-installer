@@ -15,7 +15,8 @@ source myenv/bin/activate
 pip install cloudify --pre
 cfy init
 
-ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ''
+
+echo -e  'y\n'|ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ''
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 
