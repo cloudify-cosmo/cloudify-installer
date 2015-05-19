@@ -13,7 +13,7 @@ sudo pip install virtualenv
 virtualenv myenv
 source myenv/bin/activate
 pip install cloudify --pre
-cfy init
+cfy init -r
 
 
 echo -e  'y'|ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ''
