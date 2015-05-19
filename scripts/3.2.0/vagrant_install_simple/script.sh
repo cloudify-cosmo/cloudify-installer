@@ -34,4 +34,11 @@ fi
 
 echo "blueprint file name is $BLUEPRINT_FILE"
 
-cfy bootstrap -v -p $BLUEPRINT_FILE  -i $DIR/inputs.yaml --install-plugins --keep-up-on-failure
+INPUTS_FILE=$DIR/$USER_inputs.yaml
+
+if [ ! -f $INPUTS_FILE ];then
+    >&2 echo "ERROR: cannot find inputs file $INPUTS_FILE"
+    exit 1
+fi
+
+cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up-on-failure
