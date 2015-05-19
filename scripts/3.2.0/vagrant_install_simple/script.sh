@@ -34,7 +34,7 @@ fi
 
 echo "blueprint file name is $BLUEPRINT_FILE"
 
-INPUTS_FILE=$DIR/$USER_inputs.yaml
+INPUTS_FILE=${DIR}/${USER}_inputs.yaml
 
 if [ ! -f $INPUTS_FILE ];then
     >&2 echo "ERROR: cannot find inputs file $INPUTS_FILE"
