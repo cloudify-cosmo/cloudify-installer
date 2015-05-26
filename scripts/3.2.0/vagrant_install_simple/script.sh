@@ -10,8 +10,13 @@ fi
 
 sudo apt-get install python-pip python-dev -y
 sudo pip install virtualenv
-virtualenv myenv
-source myenv/bin/activate
+
+if [ "$SYSTEM_TESTS_VIRTUAL_ENV" == "" ]; then
+    export SYSTEM_TESTS_VIRTUAL_ENV=myenv
+fi
+
+virtualenv $SYSTEM_TESTS_VIRTUAL_ENV
+source $SYSTEM_TESTS_VIRTUAL_ENV/bin/activate
 pip install cloudify --pre
 cfy init -r
 
@@ -45,13 +50,4 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 
 if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n singlehost-blueprint.yaml
-fi
-
-if [ "$INSTALL_SYSTEM_TESTS_SCRIPT" != "" ]; then
-
-    if [ -f "$INSTALL_SYSTEM_TESTS_SCRIPT" ]; then
-        source $INSTALL_SYSTEM_TESTS_SCRIPT
-    else
-        >&2 echo "ERROR: [$INSTALL_SYSTEM_TESTS_SCRIPT] does not exist"
-    fi
 fi
