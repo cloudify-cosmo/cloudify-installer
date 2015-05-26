@@ -46,3 +46,12 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n singlehost-blueprint.yaml
 fi
+
+if [ "$INSTALL_SYSTEM_TESTS_SCRIPT" != "" ]; then
+
+    if [ -f "$INSTALL_SYSTEM_TESTS_SCRIPT" ]; then
+        source $INSTALL_SYSTEM_TESTS_SCRIPT
+    else
+        >&2 echo "ERROR: [$INSTALL_SYSTEM_TESTS_SCRIPT] does not exist"
+    fi
+fi
