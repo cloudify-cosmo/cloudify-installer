@@ -45,7 +45,7 @@ for more details regarding the tasks available, please see `tasks` folder.
  cfy: {
      install: {
          'cmd' : 'run_script',
-         'script' : '3.2.0/vagrant_install_simple/script.sh',
+         'script' : '3.3.0/vagrant_install_simple/script.sh',
          'args' : [],
          options: {
              env: {
@@ -57,7 +57,27 @@ for more details regarding the tasks available, please see `tasks` folder.
 ```
 ## Using Command-line
 
+`cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh`
+
+### Installing 3.2
+
 `cloudify-installer run_script -s 3.2.0/vagrant_install_simple/script.sh`
+
+
+```
+ cfy: {
+     install: {
+         'cmd' : 'run_script',
+         'script' : '3.2.0/vagrant_install_simple/script.sh',
+         'args' : [],
+         options: {
+             env: {
+
+             }
+         }
+     }
+ },
+```
 
 # Commands
 
