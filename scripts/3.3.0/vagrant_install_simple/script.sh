@@ -12,7 +12,7 @@ sudo apt-get install python-pip python-dev -y
 sudo pip install virtualenv
 virtualenv myenv
 source myenv/bin/activate
-pip install cloudify --pre
+pip install cloudify
 cfy init -r
 
 
@@ -45,6 +45,10 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 
 UI_BLUEPRINT_URL="https://s3.amazonaws.com/cloudify-ui-build/3.3/blueprint.tar.gz"
 cfy blueprints publish-archive -l "$UI_BLUEPRINT_URL" -b cloudify-ui -n singlehost.yaml
+cfy deployments create  -b cloudify-ui -d cloudify-ui
+cfy executions start -d cloudify-ui -w start
+sleep 10 # wait for ui to start
+echo finished installing cloudify-ui
 
 
 
