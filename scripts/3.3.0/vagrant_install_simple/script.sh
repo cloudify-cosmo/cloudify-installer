@@ -27,9 +27,9 @@ COMMERCIAL_TARZAN_PACKAGE_URL="http://192.168.10.13/builds/GigaSpacesBuilds/clou
 # try to see if tarzan exists. fail after 3 seconds if no response
 
 if curl --max-time 3 --output /dev/null --silent --head --fail "$COMMERCIAL_TARZAN_PACKAGE_URL"; then
-  BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_tarzan_commercial.yaml"
+  BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_tarzan_free.yaml"
 else
-  BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_aws_commercial.yaml"
+  BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint_aws_free.yaml"
 fi
 
 echo "blueprint file name is $BLUEPRINT_FILE"
@@ -42,6 +42,11 @@ if [ ! -f $INPUTS_FILE ];then
 fi
 
 cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up-on-failure
+
+UI_BLUEPRINT_URL="https://s3.amazonaws.com/cloudify-ui-build/3.3/blueprint.tar.gz"
+cfy blueprints publish-archive -l "$UI_BLUEPRINT_URL" -b cloudify-ui -n singlehost.yaml
+
+
 
 if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n singlehost-blueprint.yaml
