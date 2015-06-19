@@ -17,7 +17,7 @@ fi
 
 virtualenv $SYSTEM_TESTS_VIRTUAL_ENV
 source $SYSTEM_TESTS_VIRTUAL_ENV/bin/activate
-pip install cloudify --pre
+pip install cloudify==3.2.0
 cfy init -r
 
 
