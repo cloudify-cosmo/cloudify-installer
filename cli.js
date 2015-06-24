@@ -3,11 +3,23 @@
 
 var log4js = require('log4js');
 require('./lib/tasks/utils');
-log4js.configure({ "appenders" : [
+
+
+var log4jsConfig = { "appenders" : [
     { "type" : "console" }
 ],levels: {
     '[all]': 'INFO'
-}});
+}};
+
+if ( process.env.NO_COLOR){
+    log4jsConfig.appenders[0].layout = 'basic';
+}
+
+log4js.configure( log4jsConfig );
+
+
+
+
 var program = require('commander');
 var commands = require('./commands');
 var tabtab = require('tabtab');
