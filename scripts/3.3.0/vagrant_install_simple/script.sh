@@ -9,8 +9,13 @@
 sudo apt-get install update
 sudo apt-get install python-pip=1.5.4-1 python-dev -y
 sudo pip install virtualenv
-virtualenv myenv
-source myenv/bin/activate
+
+if [ "$SYSTEM_TESTS_VIRTUAL_ENV" == "" ]; then
+    export SYSTEM_TESTS_VIRTUAL_ENV=myenv
+fi
+
+virtualenv $SYSTEM_TESTS_VIRTUAL_ENV
+source $SYSTEM_TESTS_VIRTUAL_ENV/bin/activate
 pip install cloudify
 cfy init -r
 

@@ -4,11 +4,10 @@
 #
 ###
 
-if [ "$APT_GET_UPDATE" = "true" ]; then
-    sudo apt-get install update
-fi
 
-sudo apt-get install python-pip python-dev -y
+## https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1468155
+sudo apt-get install update
+sudo apt-get install python-pip=1.5.4-1 python-dev -y
 sudo pip install virtualenv
 
 if [ "$SYSTEM_TESTS_VIRTUAL_ENV" == "" ]; then
