@@ -1,6 +1,4 @@
 'use strict';
-var logger = require('log4js').getLogger('runScriptCommand');
-var _ = require('lodash');
 var notif = require('../lib/models').Notifications;
 var path = require('path');
 
