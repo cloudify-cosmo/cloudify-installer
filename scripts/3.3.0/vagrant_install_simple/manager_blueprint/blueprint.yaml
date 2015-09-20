@@ -1,8 +1,8 @@
 tosca_definitions_version: cloudify_dsl_1_0
 
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
-  - http://www.getcloudify.org/spec/fabric-plugin/1.2/plugin.yaml
+  - http://www.getcloudify.org/spec/cloudify/3.3m5/types.yaml
+  - http://www.getcloudify.org/spec/fabric-plugin/1.3m5/plugin.yaml
 
 
 inputs:
@@ -40,14 +40,19 @@ node_templates:
     properties:
       cloudify_packages:
         agents:
-          ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/cloudify-ubuntu-trusty-commercial-agent_3.2.0-ga-b200_amd64.deb
-          centos_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/cloudify-centos-final-agent_3.2.0-ga-b200_amd64.deb
-          windows_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/cloudify-windows-agent_3.2.0-ga-b200_amd64.deb
+          ubuntu-trusty-agent: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.3.0/m5-RELEASE/Ubuntu-trusty-agent_3.3.0-m5-b275.tar.gz
+          centos-final-agent: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.3.0/m5-RELEASE/centos-Final-agent_3.3.0-m5-b275.tar.gz
+          ubuntu-precise-agent: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.3.0/m5-RELEASE/Ubuntu-precise-agent_3.3.0-m5-b275.tar.gz
+          windows_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.3.0/m5-RELEASE/cloudify-windows-agent_3.3.0-m5-b275.exe
         docker:
-           docker_url: http://10.0.2.2/cloudify-docker_3.2.0-ga-b200.tar
+           docker_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.3.0/m5-RELEASE/cloudify-docker_3.3.0-m5-b275.tar
 
       cloudify:
         resources_prefix: { get_input: resources_prefix }
+
+        transient_deployment_workers_mode:
+          enabled: false
+          global_parallel_executions_limit: 50
 
         cloudify_agent:
           min_workers: 0

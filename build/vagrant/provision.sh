@@ -3,6 +3,8 @@ set -e
 set -v
 
 
+PLATFORM=`python -mplatform | grep Ubuntu && echo "ubuntu" || echo "centos"`
+
 
 
 if [ ! -f /usr/bin/node ];then
@@ -22,7 +24,11 @@ fi
 
 if [ ! -f /usr/bin/git ]; then
     echo "installing git"
-    sudo apt-get install -y git
+    if [ "$PLATFORM" = "ubuntu" ];then
+        sudo apt-get install -y git
+    else
+        sudo yum install -y git
+    fi
 else
     echo "git already installed"
 fi
@@ -32,5 +38,5 @@ sudo npm uninstall -g cloudify-installer || echo "no need to uninstall"
 ## my solution is to disable the script on install and then run it manually.
 sudo npm install -g cloudify-cosmo/cloudify-installer grunt-cli --ignore-scripts
 sudo npm cache clean
-sudo /usr/lib/node_modules/cloudify-installer/enable_autocomplete.sh
+sudo /usr/lib/node_modules/cloudify-installer/enable_autocomplete.sh || echo "autocomplete failed"
 

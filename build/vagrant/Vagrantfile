@@ -1,17 +1,25 @@
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "cloudify-installer-build"
-  config.vm.box_url= "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+
+
+  config.vm.define "ubuntu" do |machine|
+    machine.vm.box = "cloudify-installer-build-ubuntu"
+    machine.vm.box_url= "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  end
+
+  config.vm.define "centos" do |machine|
+    machine.vm.box = "cloudify-installer-build-centos"
+    machine.vm.box_url= "https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box"
+  end
 
   config.vm.synced_folder "./synced_folder", "/vagrant", type: "rsync"
-
-  config.vm.network "forwarded_port", guest: 80, host: 1616
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 4096
     v.cpus = 4
   end
 
+  config.vm.network "forwarded_port", guest: 80, host: 1616
 
   config.vm.provision "shell" do |s|
     s.path = "./provision.sh"
