@@ -16,6 +16,9 @@ fi
 
 virtualenv $SYSTEM_TESTS_VIRTUAL_ENV && source $SYSTEM_TESTS_VIRTUAL_ENV/bin/activate
 
+## todo: current using master.. will remove this by eov.
+export TAG=master
+
 if [ "$TAG" = "" ];then
     pip install cloudify --pre
 else
@@ -32,7 +35,9 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-BLUEPRINT_FILE="$DIR/manager_blueprint/blueprint.yaml"
+git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git
+
+BLUEPRINT_FILE="$DIR/cloudify-manager-blueprints/new/simple-manager-blueprint.yaml"
 
 INPUTS_FILE=${DIR}/${USER}_inputs.yaml
 
@@ -45,10 +50,10 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 
 # UI_BLUEPRINT_URL="https://s3.amazonaws.com/cloudify-ui-automations/cloudify-ui-blueprint/builds/3.3/blueprint.tar.gz"
 # cfy blueprints publish-archive -l "$UI_BLUEPRINT_URL" -b cloudify-ui -n singlehost.yaml
-cfy deployments create  -b cloudify-ui -d cloudify-ui
-cfy executions start -d cloudify-ui -w install
-sleep 10 # wait for ui to start
-echo finished installing cloudify-ui
+#cfy deployments create  -b cloudify-ui -d cloudify-ui
+#cfy executions start -d cloudify-ui -w install
+#sleep 10 # wait for ui to start
+#echo finished installing cloudify-ui
 
 
 
