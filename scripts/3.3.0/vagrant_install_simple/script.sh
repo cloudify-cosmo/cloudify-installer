@@ -35,9 +35,12 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git ~/cloudify-manager-blueprints
+if [ ! -f cloudify-manager-blueprints ]; then
+    git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git
+fi
 
-BLUEPRINT_FILE="~/cloudify-manager-blueprints/new/simple-manager-blueprint.yaml"
+
+BLUEPRINT_FILE="`pwd`/cloudify-manager-blueprints/new/simple-manager-blueprint.yaml"
 
 INPUTS_FILE=${DIR}/${USER}_inputs.yaml
 
