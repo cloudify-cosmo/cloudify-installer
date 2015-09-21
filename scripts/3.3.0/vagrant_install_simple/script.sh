@@ -8,6 +8,7 @@
 
 # install pip
 sudo yum install wget -y
+sudo yum install gcc -y
 wget https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo yum install python-devel -y && sudo pip install virtualenv
 
 if [ "$SYSTEM_TESTS_VIRTUAL_ENV" == "" ]; then
