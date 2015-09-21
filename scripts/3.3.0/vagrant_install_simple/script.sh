@@ -41,10 +41,13 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 if [ ! -f cloudify-manager-blueprints ]; then
     git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git
-    if [ "$MANAGER_BRANCH" = "" ];then
+    if [ "$MANAGER_BRANCH" != "" ];then
+        echo "using manager branch $MANAGER_BRANCH"
         cd cloudify-manager-blueprints
         git checkout $MANAGER_BRANCH
         cd ..
+    else
+        echo "manager branch is empty"
     fi
 fi
 
