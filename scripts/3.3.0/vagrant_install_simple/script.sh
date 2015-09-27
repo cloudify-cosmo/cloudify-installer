@@ -12,9 +12,10 @@ sudo yum install gcc -y
 wget https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo yum install python-devel -y && sudo pip install virtualenv
 
 if [ "$SYSTEM_TESTS_VIRTUAL_ENV" == "" ]; then
-    export SYSTEM_TESTS_VIRTUAL_ENV=myenv
+    export SYSTEM_TESTS_VIRTUAL_ENV=`pwd`/myenv
 fi
 
+echo "virtualenv is at: $SYSTEM_TESTS_VIRTUAL_ENV]"
 virtualenv $SYSTEM_TESTS_VIRTUAL_ENV && source $SYSTEM_TESTS_VIRTUAL_ENV/bin/activate
 
 ## todo: current using master.. will remove this by eov.
