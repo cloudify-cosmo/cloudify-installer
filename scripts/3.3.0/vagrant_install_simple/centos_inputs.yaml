@@ -1,7 +1,7 @@
 public_ip: '127.0.0.1'
 private_ip: '127.0.0.1'
-ssh_user: 'ubuntu'
+ssh_user: 'centos'
 ssh_key_filename: '~/.ssh/id_rsa'
 
-agents_user: 'ubuntu'
+agents_user: 'centos'
 resources_prefix: ''
