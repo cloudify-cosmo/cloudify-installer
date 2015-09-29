@@ -75,8 +75,13 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 # cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n simple-blueprint.yaml
 
 if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
+
+    echo "host_ip: '10.10.1.10'
+agent_user: 'vagrant'
+agent_private_key_path: '/home/vagrant/.ssh/id_rsa'" > simple-inputs.yaml
+
     cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b cloudify-ui -n simple-blueprint.yaml
-    cfy deployments create -b cloudify-ui -d deployment_to_delete
-    cfy deployments create -b cloudify-ui -d installed_deployment
+    cfy deployments create -b cloudify-ui -d deployment_to_delete --inputs simple-inputs.yaml
+    cfy deployments create -b cloudify-ui -d installed_deployment --inputs simple-inputs.yaml
     cfy executions start -w install -d installed_deployment
 fi
