@@ -19,15 +19,19 @@ fi
 echo "virtualenv is at: $SYSTEM_TESTS_VIRTUAL_ENV]"
 virtualenv $SYSTEM_TESTS_VIRTUAL_ENV && source $SYSTEM_TESTS_VIRTUAL_ENV/bin/activate
 
-## todo: current using master.. will remove this by eov.
+## todo: current using 3.3m5.. will remove this by eov.
+
 export TAG="3.3m5"
 
 if [ "$TAG" = "" ];then
     pip install cloudify --pre
+    export TAG="3.3m5" # default for rest of script to use this tag..
 else
     echo "installing cli from tag $TAG"
     pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/$TAG.zip -r https://raw.githubusercontent.com/cloudify-cosmo/cloudify-cli/$TAG/dev-requirements.txt
 fi
+
+echo "TAG is $TAG"
 
 cfy init -r
 
@@ -39,7 +43,12 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 ## todo: remove once merged
- MANAGER_BRANCH="3.3m5"
+if [ "$MANAGER_BRANCH" = "" ]; then
+    export MANAGER_BRANCH="$TAG"
+fi
+
+echo "MANAGER_BRANCH is $MANAGER_BRANCH"
+
 
 if [ ! -f cloudify-manager-blueprints ]; then
     git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git
@@ -75,7 +84,14 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 # cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n simple-blueprint.yaml
 
 if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
-    cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n simple-blueprint.yaml
+
+    if [ "$NODECELLAR_BRANCH" = "" ]; then
+        export NODECELLAR_BRANCH="$TAG"
+    fi
+
+    echo "NODECELLAR_BRANCH is $NODECELLAR_BRANCH"
+
+    cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/${NODECELLAR_BRANCH}.tar.gz -b nodecellar1 -n simple-blueprint.yaml
     cfy deployments create -b nodecellar1 -d deployment_to_delete --inputs simple-inputs.yaml
     cfy deployments create -b nodecellar1 -d installed_deployment --inputs simple-inputs.yaml
     #cfy executions start -w install -d installed_deployment
