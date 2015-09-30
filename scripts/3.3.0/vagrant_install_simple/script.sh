@@ -38,7 +38,7 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 ## todo: remove once merged
- MANAGER_BRANCH="CFY-3604-use-the-new-ui"
+ MANAGER_BRANCH="3.3m5"
 
 if [ ! -f cloudify-manager-blueprints ]; then
     git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git
