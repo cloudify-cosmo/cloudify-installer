@@ -80,8 +80,8 @@ if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
 agent_user: 'vagrant'
 agent_private_key_path: '/home/vagrant/.ssh/id_rsa'" > simple-inputs.yaml
 
-    cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b cloudify-ui -n simple-blueprint.yaml
-    cfy deployments create -b cloudify-ui -d deployment_to_delete --inputs simple-inputs.yaml
-    cfy deployments create -b cloudify-ui -d installed_deployment --inputs simple-inputs.yaml
+    cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n simple-blueprint.yaml
+    cfy deployments create -b nodecellar1 -d deployment_to_delete --inputs simple-inputs.yaml
+    cfy deployments create -b nodecellar1 -d installed_deployment --inputs simple-inputs.yaml
     cfy executions start -w install -d installed_deployment
 fi
