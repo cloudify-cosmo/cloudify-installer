@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ####
 #
 # A script to install cloudify using the simple blueprint
@@ -71,8 +72,11 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 #sleep 10 # wait for ui to start
 #echo finished installing cloudify-ui
 
-
+# cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n simple-blueprint.yaml
 
 if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n simple-blueprint.yaml
+    cfy deployments create -b nodecellar1 -d deployment_to_delete --inputs simple-inputs.yaml
+    cfy deployments create -b nodecellar1 -d installed_deployment --inputs simple-inputs.yaml
+    #cfy executions start -w install -d installed_deployment
 fi
