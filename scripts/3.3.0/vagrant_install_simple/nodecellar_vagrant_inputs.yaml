@@ -1,0 +1,3 @@
+host_ip: 'localhost'
+agent_user: 'vagrant'
+agent_private_key_path: '~/.ssh/id_rsa'
