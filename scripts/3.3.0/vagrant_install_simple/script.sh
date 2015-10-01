@@ -4,6 +4,25 @@
 # A script to install cloudify using the simple blueprint
 #
 ###
+if [ "$TAG" = "" ]; then
+    export TAG="3.3m5"
+fi
+
+echo "TAG is $TAG"
+
+if [ "$MANAGER_BRANCH" = "" ]; then
+    export MANAGER_BRANCH="$TAG"
+fi
+
+echo "MANAGER_BRANCH is $MANAGER_BRANCH"
+
+if [ "$NODECELLAR_BRANCH" = "" ]; then
+        export NODECELLAR_BRANCH="$TAG"
+    fi
+
+echo "NODECELLAR_BRANCH is $NODECELLAR_BRANCH"
+
+echo "INSTALL_SYSTEM_TESTS_REQ is $INSTALL_SYSTEM_TESTS_REQ"
 
 #pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/$TAG.zip -r https://raw.githubusercontent.com/cloudify-cosmo/cloudify-cli/$TAG/dev-requirements.txt
 
@@ -21,11 +40,10 @@ virtualenv $SYSTEM_TESTS_VIRTUAL_ENV && source $SYSTEM_TESTS_VIRTUAL_ENV/bin/act
 
 ## todo: current using 3.3m5.. will remove this by eov.
 
-export TAG="3.3m5"
 
-if [ "$TAG" = "" ];then
+
+if [ "$TAG" = "pip" ];then
     pip install cloudify --pre
-    export TAG="3.3m5" # default for rest of script to use this tag..
 else
     echo "installing cli from tag $TAG"
     pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/$TAG.zip -r https://raw.githubusercontent.com/cloudify-cosmo/cloudify-cli/$TAG/dev-requirements.txt
@@ -42,24 +60,14 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-## todo: remove once merged
-if [ "$MANAGER_BRANCH" = "" ]; then
-    export MANAGER_BRANCH="$TAG"
-fi
 
-echo "MANAGER_BRANCH is $MANAGER_BRANCH"
 
 
 if [ ! -f cloudify-manager-blueprints ]; then
     git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git
-    if [ "$MANAGER_BRANCH" != "" ];then
-        echo "using manager branch $MANAGER_BRANCH"
-        cd cloudify-manager-blueprints
-        git checkout $MANAGER_BRANCH
-        cd ..
-    else
-        echo "manager branch is empty"
-    fi
+    cd cloudify-manager-blueprints
+    git checkout $MANAGER_BRANCH
+    cd ..
 fi
 
 
@@ -84,12 +92,6 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 # cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n simple-blueprint.yaml
 
 if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
-
-    if [ "$NODECELLAR_BRANCH" = "" ]; then
-        export NODECELLAR_BRANCH="$TAG"
-    fi
-
-    echo "NODECELLAR_BRANCH is $NODECELLAR_BRANCH"
 
     cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/${NODECELLAR_BRANCH}.tar.gz -b nodecellar1 -n simple-blueprint.yaml
     NODECELLAR_INPUTS_FILE=${DIR}/nodecellar_${USER}_inputs.yaml
