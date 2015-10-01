@@ -41,7 +41,7 @@ for more details regarding the tasks available, please see `tasks` folder.
 
 ## Using Gruntfile
 
-```
+```js
  cfy: {
      install: {
          'cmd' : 'run_script',
@@ -63,7 +63,7 @@ to run with default configuration
 
 available customizations
 
-```
+```bash
 export TAG="master" # tag for cli. defaults to master
 export MANAGER_BRANCH="master" # branch for manager blueprint. defaults to $TAG
 export NODECELLAR_BRANCH="master" # branch for nodecellar-example. defaults to $TAG
@@ -76,7 +76,7 @@ cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh
 `cloudify-installer run_script -s 3.2.0/vagrant_install_simple/script.sh`
 
 
-```
+```js
  cfy: {
      install: {
          'cmd' : 'run_script',
