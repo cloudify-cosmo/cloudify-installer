@@ -57,7 +57,19 @@ for more details regarding the tasks available, please see `tasks` folder.
 ```
 ## Using Command-line
 
+to run with default configuration
+
 `cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh`
+
+available customizations
+
+```
+export TAG="master" # tag for cli. defaults to master
+export MANAGER_BRANCH="master" # branch for manager blueprint. defaults to $TAG
+export NODECELLAR_BRANCH="master" # branch for nodecellar-example. defaults to $TAG
+export INSTALL_SYSTEM_TESTS_REQ="true" # should we setup resources for tests? defaults to ''. if not empty then true. 
+cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh
+```
 
 ### Installing 3.2
 
