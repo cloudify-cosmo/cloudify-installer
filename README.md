@@ -103,9 +103,9 @@ See all commands by running `cloudify-installer --help`
 ### Bootstrapping:
 - Install the matching cli version (release vagrant box usually comes with the needed cli)
 - Make sure python compilers necessary for openstack modules are installed on the machine:
-`sudo yum install gcc python-devel -y`
+    `sudo yum install gcc python-devel -y`
 - Get the desired manager blueprint on the machine
-`git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git && cd cloudify-manager-blueprints && git checkout TAG_NAME`
+    `git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git && cd cloudify-manager-blueprints && git checkout TAG_NAME`
 - DataCentred cloud requires adding dns_nameservers property in the manager blueprint:
     - Add dns_nameservers: [8.8.4.4, 8.8.8.8]
       under node_templates.management_subnet.properties.subnet
@@ -144,4 +144,4 @@ See all commands by running `cloudify-installer --help`
     - You should fill **keystone_username**,**keystone_password** and **keystone_tenant_name** fields with your credentials
     - Notice that every value that start with 'eden' should be replace to your name.
 - Bootstrap!
-`cfy init && cfy bootstrap --install-plugins -p /PATH/TO/MANAGER/BLUEPRINT/FILE -i /PATH/TO/INPUTS/YAML/FILE`
+    `cfy init && cfy bootstrap --install-plugins -p /PATH/TO/MANAGER/BLUEPRINT/FILE -i /PATH/TO/INPUTS/YAML/FILE`
