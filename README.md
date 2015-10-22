@@ -91,7 +91,7 @@ cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh
  },
 ```
 
-# Commands
+## Commands
 
 See all commands by running `cloudify-installer --help`
 
