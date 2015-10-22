@@ -94,3 +94,54 @@ cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh
 # Commands
 
 See all commands by running `cloudify-installer --help`
+
+# Bootstrapping on DataCentred
+### Make sure:
+- You have a user on the cloud provider
+- You are assigned a tenant with the required resources
+
+### Bootstrapping:
+- Install the matching cli version (release vagrant box usually comes with the needed cli)
+- Make sure python compilers necessary for openstack modules are installed on the machine:
+    `sudo yum install gcc python-devel -y`
+- Get the desired manager blueprint on the machine
+    `git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git && cd cloudify-manager-blueprints && git checkout TAG_NAME`
+- DataCentred cloud requires adding dns_nameservers property in the manager blueprint:
+    - Add dns_nameservers: [8.8.4.4, 8.8.8.8]
+      under node_templates.management_subnet.properties.subnet
+      in the blueprint
+- Get an input file and fill the required fields.
+    - Input file without credentials should look like this:
+        ```
+        manager_public_key_name: eden-mng-kp-new
+        agent_public_key_name: eden-agent-kp-new
+
+        use_existing_manager_keypair: false
+        use_existing_agent_keypair: false
+        manager_server_name: eden-systemt-cloudify-manager
+        ssh_user: centos
+        ssh_key_filename: ~/.ssh/eden-mng-kp-new.pem
+        agent_private_key_path: ~/.ssh/eden-agent-kp-new.pem
+        agents_user: ubuntu
+        management_network_name: systemt-cloudify-management-network
+        management_subnet_name: systemt-cloudify-management-network-subnet
+        management_router: systemt-cloudify-management-router
+        manager_security_group_name: systemt-cloudify-sg-manager
+        agents_security_group_name: systemt-cloudify-sg-agents
+        manager_port_name: systemt-cloudify-manager-port
+        resources_prefix: 'eden-'
+
+        # datacentered
+        keystone_username: ''
+        keystone_password: ''
+        keystone_tenant_name: ''
+        region: 'sal01'
+        keystone_url: https://compute.datacentred.io:5000/v2.0
+        external_network_name: external
+        flavor_id: 'af2a80fe-ccad-43df-8cae-6418da948467'
+        image_id: '74ff4015-aee1-4e02-aaa8-1c77b2650394'
+        ```
+    - You should fill **keystone_username**,**keystone_password** and **keystone_tenant_name** fields with your credentials
+    - Notice that every value that start with 'eden' should be replace to your name.
+- Bootstrap!
+    `cfy init && cfy bootstrap --install-plugins -p /PATH/TO/MANAGER/BLUEPRINT/FILE -i /PATH/TO/INPUTS/YAML/FILE`
