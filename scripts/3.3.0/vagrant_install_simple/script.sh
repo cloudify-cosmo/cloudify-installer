@@ -5,7 +5,7 @@
 #
 ###
 if [ "$TAG" = "" ]; then
-    export TAG="3.3m5"
+    export TAG="master"
 fi
 
 echo "TAG is $TAG"
@@ -73,7 +73,22 @@ fi
 
 BLUEPRINT_FILE="`pwd`/cloudify-manager-blueprints/new/simple-manager-blueprint.yaml"
 
-INPUTS_FILE=${DIR}/${USER}_inputs.yaml
+if [ "$TYPE" = "" ]; then
+    TYPE="plain"
+fi
+
+if [ "$TYPE" = "security" ] || [ "$TYPE" = "ssl" ]; then
+    CLOUDIFY_USERNAME=admin #         (or any other username you set as the input value of admin_username)
+    CLOUDIFY_PASSWORD=admin #        (same logic)
+fi
+
+if [ "$TYPE"="ssl" ]; then
+    CLOUDIFY_SSL_TRUST_ALL=True #  (if the client supports self-signed certificates)
+fi
+
+INPUTS_FILE=${DIR}/manager_${TYPE}_${USER}_inputs.yaml
+
+echo "inputs file is: [$INPUTS_FILE]"
 
 if [ ! -f $INPUTS_FILE ];then
     >&2 echo "ERROR: cannot find inputs file $INPUTS_FILE"

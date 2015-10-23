@@ -1,26 +1,13 @@
-set -x
-set -e
-set -v
+set -evx
 
 
 PLATFORM=`python -mplatform | grep Ubuntu && echo "ubuntu" || echo "centos"`
 
-
-
-if [ ! -f /usr/bin/node ];then
-    echo "installing node"
-    NODEJS_VERSION=0.10.35
-    NODEJS_HOME=/opt/nodejs
-    sudo mkdir -p $NODEJS_HOME
-    sudo chown $USER:$USER $NODEJS_HOME
-    curl --fail --silent http://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz -o /tmp/nodejs.tar.gz
-    tar -xzf /tmp/nodejs.tar.gz -C ${NODEJS_HOME} --strip-components=1
-    sudo ln -s /opt/nodejs/bin/node /usr/bin/node
-    sudo ln -s /opt/nodejs/bin/npm /usr/bin/npm
+if [ ! -f /usr/bin/node ]; then
+   set +evx &&  ( curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.27.1/install.sh | bash  )  && source ~/.bashrc && nvm install 0.10.35 && nvm alias default 0.10.35 && n=$(which node);n=${n%/bin/node}; sudo ln -s $n/bin/node /usr/bin/node; sudo ln -s $n/bin/npm /usr/bin/npm && set -evx ;
 else
     echo "node already installed"
 fi
-
 
 if [ ! -f /usr/bin/git ]; then
     echo "installing git"
@@ -39,4 +26,9 @@ sudo npm uninstall -g cloudify-installer || echo "no need to uninstall"
 sudo npm install -g cloudify-cosmo/cloudify-installer#master grunt-cli --ignore-scripts
 sudo npm cache clean
 sudo /usr/lib/node_modules/cloudify-installer/enable_autocomplete.sh || echo "autocomplete failed"
+
+export INSTALL_SYSTEM_TESTS_REQ="true"
+export TAG="master"
+export TYPE="ssl"
+cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh
 
