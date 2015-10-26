@@ -79,12 +79,12 @@ if [ "$TYPE" = "" ]; then
 fi
 
 if [ "$TYPE" = "security" ] || [ "$TYPE" = "ssl" ]; then
-    CLOUDIFY_USERNAME=admin #         (or any other username you set as the input value of admin_username)
-    CLOUDIFY_PASSWORD=admin #        (same logic)
+    export CLOUDIFY_USERNAME=admin #         (or any other username you set as the input value of admin_username)
+    export CLOUDIFY_PASSWORD=admin #        (same logic)
 fi
 
 if [ "$TYPE"="ssl" ]; then
-    CLOUDIFY_SSL_TRUST_ALL=True #  (if the client supports self-signed certificates)
+    export CLOUDIFY_SSL_TRUST_ALL=True #  (if the client supports self-signed certificates)
 fi
 
 INPUTS_FILE=${DIR}/manager_${TYPE}_${USER}_inputs.yaml
