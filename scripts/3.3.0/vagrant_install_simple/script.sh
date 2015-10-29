@@ -115,6 +115,5 @@ if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     NODECELLAR_INPUTS_FILE=${DIR}/nodecellar_${USER}_inputs.yaml
     cfy deployments create -b nodecellar1 -d deployment_to_delete --inputs ${NODECELLAR_INPUTS_FILE}
     cfy deployments create -b nodecellar1 -d installed_deployment --inputs ${NODECELLAR_INPUTS_FILE}
-    cfy deployments create -b nodecellar1 -d uninstalled_deployment --inputs ${NODECELLAR_INPUTS_FILE}
     #cfy executions start -w install -d installed_deployment
 fi
