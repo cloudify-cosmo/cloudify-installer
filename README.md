@@ -151,3 +151,37 @@ See all commands by running `cloudify-installer --help`
     - Notice that every value that start with 'eden' should be replace to your name.
 - Bootstrap!
     `cfy init && cfy bootstrap --install-plugins -p /PATH/TO/MANAGER/BLUEPRINT/FILE -i /PATH/TO/INPUTS/YAML/FILE`
+
+
+
+# Manual RBAC
+
+To set up a simple authorization example:
+
+1. Set the userstore in "manager-types.yaml" to:
+
+```
+    userstore:
+        users:
+          - username: { get_input: admin_username }
+            password: { get_input: admin_password }
+            groups:
+              - cfy_admins
+          - username: viewer
+            password: viewer
+            roles:
+              - viewer
+        groups:
+          - name: cfy_admins
+            roles:
+              - administrator
+```
+
+2. in "roles_config.yaml" un-comment the viewer role  - see example file under `3.3.0/vagrant_install_simple`
+
+3. in your inputs file set
+
+```
+    security_enabled: true
+    ssl_enabled: true
+```
