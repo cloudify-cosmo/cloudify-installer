@@ -185,3 +185,11 @@ To set up a simple authorization example:
     security_enabled: true
     ssl_enabled: true
 ```
+
+### Workspace - How to change roles at runtime
+
+ - ssh to machine
+ - go to /opt/manager/roles_config.yaml
+ - change the file
+ - run command `sudo systemctl restart cloudify-restservice` - this will reload the file
+
