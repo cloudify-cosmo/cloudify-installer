@@ -89,8 +89,9 @@ if [ "$TYPE" = "security" ] || [ "$TYPE" = "ssl" ]; then
     ## why is there a backslash in \cp? http://superuser.com/questions/643388/force-copy-when-i-is-used-in-bash-alias
     \cp -f ${DIR}/rbac_manager_types.yaml ${MANAGEMENT_BLUEPRINT_DIR}/new/types/manager-types.yaml
 
+    echo "making directory /opt/manager"
     sudo mkdir -p /opt/manager
-    \cp -f ${DIR}/roles_config.yaml /opt/manager/roles_config.yaml
+    sudo \cp -f ${DIR}/roles_config.yaml /opt/manager/roles_config.yaml
 fi
 
 if [ "$TYPE"="ssl" ]; then
