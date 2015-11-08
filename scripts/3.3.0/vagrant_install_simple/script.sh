@@ -60,6 +60,7 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+MANAGEMENT_BLUEPRINT_DIR=""
 
 
 
@@ -67,8 +68,10 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 if [ ! -f cloudify-manager-blueprints ]; then
     git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git
     cd cloudify-manager-blueprints
+    MANAGEMENT_BLUEPRINT_DIR=`pwd`
     git checkout $MANAGER_BRANCH
     cd ..
+    echo "management root dir is [$MANAGEMENT_BLUEPRINT_DIR]"
 fi
 
 
@@ -81,6 +84,10 @@ fi
 if [ "$TYPE" = "security" ] || [ "$TYPE" = "ssl" ]; then
     export CLOUDIFY_USERNAME=admin #         (or any other username you set as the input value of admin_username)
     export CLOUDIFY_PASSWORD=admin #        (same logic)
+
+    echo "copying rbac_manager_types.yaml to replace manager-types.yaml"
+    ## why is there a backslash in \cp? http://superuser.com/questions/643388/force-copy-when-i-is-used-in-bash-alias
+    \cp -f ${DIR}/rbac_manager_types.yaml $MANAGEMENT_BLUEPRINT_DIR/new/types.yaml
 fi
 
 if [ "$TYPE"="ssl" ]; then

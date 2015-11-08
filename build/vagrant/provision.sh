@@ -29,6 +29,7 @@ sudo /usr/lib/node_modules/cloudify-installer/enable_autocomplete.sh || echo "au
 
 export INSTALL_SYSTEM_TESTS_REQ="true"
 export TAG="master"
+# export MANAGER_BRANCH="CFY-3766-manager-accesible-through-port-80-even-if-SSL-enabled"
 export TYPE="ssl"
 cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh
 
