@@ -75,7 +75,7 @@ if [ ! -f cloudify-manager-blueprints ]; then
 fi
 
 
-BLUEPRINT_FILE="`pwd`/cloudify-manager-blueprints/new/simple-manager-blueprint.yaml"
+BLUEPRINT_FILE="`pwd`/cloudify-manager-blueprints/simple-manager-blueprint.yaml"
 
 if [ "$TYPE" = "" ]; then
     TYPE="plain"
@@ -87,9 +87,9 @@ if [ "$TYPE" = "security" ] || [ "$TYPE" = "ssl" ]; then
 
     echo "copying rbac_manager_types.yaml to replace manager-types.yaml"
     ## why is there a backslash in \cp? http://superuser.com/questions/643388/force-copy-when-i-is-used-in-bash-alias
-    \cp -f ${DIR}/rbac_manager_types.yaml ${MANAGEMENT_BLUEPRINT_DIR}/new/types/manager-types.yaml
+    \cp -f ${DIR}/rbac_manager_types.yaml ${MANAGEMENT_BLUEPRINT_DIR}/types/manager-types.yaml
 
-    \cp -f ${DIR}/roles_config.yaml ${MANAGEMENT_BLUEPRINT_DIR}/new/resources/rest/roles_config.yaml
+    \cp -f ${DIR}/roles_config.yaml ${MANAGEMENT_BLUEPRINT_DIR}/resources/rest/roles_config.yaml
 fi
 
 if [ "$TYPE"="ssl" ]; then
