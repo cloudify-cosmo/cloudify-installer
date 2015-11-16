@@ -1,4 +1,3 @@
-
 ######################################################################
 # By default, the types are using the Fabric plugin to create
 # and start the nodes so that you can choose a machine and run this
@@ -174,6 +173,10 @@ node_types:
   manager.nodes.RabbitMQ:
     derived_from: cloudify.nodes.MessageBusServer
     properties:
+      rabbitmq_endpoint_ip:
+        description: Location of the endpoint.
+        type: string
+        default: { get_input: rabbitmq_endpoint_ip }
       erlang_rpm_source_url:
         description: Erlang RPM to install.
         type: string
@@ -314,6 +317,10 @@ node_types:
       es_endpoint_port:
         type: integer
         default: { get_input: elasticsearch_endpoint_port }
+      rabbitmq_endpoint_ip:
+        description: Location of the endpoint. If blank, rabbit will be installed and configured on the manager.
+        type: string
+        default: { get_input: rabbitmq_endpoint_ip }
       rabbitmq_username:
         description: RabbitMQ username for access to queues.
         type: string
@@ -395,6 +402,8 @@ node_types:
             script_path:
               default: components/nginx/scripts/create.sh
             fabric_env: *simple_fabric_env
+            REST_PROTOCOL:
+              default: { get_attribute: [manager_configuration, rest_protocol] }
         configure:
           implementation: fabric.fabric_plugin.tasks.run_task
           inputs:
@@ -438,6 +447,10 @@ node_types:
         description: REST Service module Source URL
         type: string
         default: { get_input: cloudify_resources_url }
+      rabbitmq_endpoint_ip:
+        description: Location of the endpoint. If blank, rabbit will be installed and configured on the manager.
+        type: string
+        default: { get_input: rabbitmq_endpoint_ip }
       rabbitmq_username:
         description: RabbitMQ username for access to queues.
         type: string
@@ -489,6 +502,10 @@ node_types:
         description: REST Service module Source URL
         type: string
         default: { get_input: rest_service_source_url }
+      rabbitmq_endpoint_ip:
+        description: Location of the endpoint. If blank, rabbit will be installed and configured on the manager.
+        type: string
+        default: { get_input: rabbitmq_endpoint_ip }
       rabbitmq_ssl_enabled:
         description: Set whether SSL should be enabled for Rabbit.
         type: boolean
@@ -587,6 +604,10 @@ node_types:
         description: Agent module Source URL
         type: string
         default: { get_input: agent_source_url }
+      rabbitmq_endpoint_ip:
+        description: Location of the endpoint. If blank, rabbit will be installed and configured on the manager.
+        type: string
+        default: { get_input: rabbitmq_endpoint_ip }
       rabbitmq_username:
         description: RabbitMQ username for access to queues.
         type: string
@@ -635,6 +656,10 @@ node_types:
         description: AMQP to InfluxDB Broker Source URL
         type: string
         default: { get_input: amqpinflux_source_url }
+      rabbitmq_endpoint_ip:
+        description: Location of the endpoint. If blank, rabbit will be installed and configured on the manager.
+        type: string
+        default: { get_input: rabbitmq_endpoint_ip }
       rabbitmq_username:
         description: RabbitMQ username for access to queues.
         type: string
@@ -785,6 +810,20 @@ relationships:
 
   mgmtworker_to_nginx:
     derived_from: cloudify.relationships.connected_to
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        postconfigure: components/manager/scripts/set_manager_private_ip.py
+
+  nginx_to_manager_configuration:
+    derived_from: cloudify.relationships.depends_on
+    source_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        preconfigure:
+          implementation: fabric.fabric_plugin.tasks.run_script
+          inputs:
+            script_path:
+              default: components/nginx/scripts/preconfigure.sh
+            fabric_env: *simple_fabric_env
     target_interfaces:
       cloudify.interfaces.relationship_lifecycle:
         postconfigure: components/manager/scripts/set_manager_private_ip.py
