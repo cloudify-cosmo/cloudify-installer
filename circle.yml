@@ -1,0 +1,11 @@
+machine:
+  node:
+    version: 0.10.40
+
+dependencies:
+  override:
+    - npm install --ignore-scripts
+
+test:
+  pre:
+    - npm install -g grunt-cli
