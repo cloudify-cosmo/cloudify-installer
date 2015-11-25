@@ -9,3 +9,5 @@ dependencies:
 test:
   pre:
     - npm install -g grunt-cli
+  override:
+    - npm test
