@@ -1,5 +1,7 @@
 # cloudify-installer
 
+* Master [![Circle CI](https://circleci.com/gh/cloudify-cosmo/cloudify-installer/tree/master.svg?style=shield)](https://circleci.com/gh/cloudify-cosmo/cloudify-installer/tree/master)
+
 a node tool to easily install cloudify and other goods
 
 
