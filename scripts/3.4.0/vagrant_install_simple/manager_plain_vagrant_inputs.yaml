@@ -1,0 +1,7 @@
+public_ip: '127.0.0.1'
+private_ip: '127.0.0.1'
+ssh_user: 'vagrant'
+ssh_key_filename: '~/.ssh/id_rsa'
+
+agents_user: 'vagrant'
+resources_prefix: ''
