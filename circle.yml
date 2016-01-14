@@ -1,0 +1,22 @@
+machine:
+  node:
+    version: 0.10.40
+
+checkout:
+  post:
+    - >
+      if [ -n "$CI_PULL_REQUEST" ]; then
+        PR_ID=${CI_PULL_REQUEST##*/}
+        git fetch origin +refs/pull/$PR_ID/merge:
+        git checkout -qf FETCH_HEAD
+      fi
+
+dependencies:
+  override:
+    - npm install --ignore-scripts
+
+test:
+  pre:
+    - npm install -g grunt-cli
+  override:
+    - npm test
