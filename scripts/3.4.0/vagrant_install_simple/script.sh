@@ -105,6 +105,10 @@ if [ ! -f $INPUTS_FILE ];then
     exit 1
 fi
 
+if [ "${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}" != "" ]; then
+    echo "webui_source_url: \"${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}\"" >> $INPUT_FILE
+fi
+
 cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up-on-failure
 
 # UI_BLUEPRINT_URL="https://s3.amazonaws.com/cloudify-ui-automations/cloudify-ui-blueprint/builds/3.3/blueprint.tar.gz"

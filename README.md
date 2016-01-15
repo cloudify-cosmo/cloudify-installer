@@ -155,6 +155,12 @@ See all commands by running `cloudify-installer --help`
     `cfy init && cfy bootstrap --install-plugins -p /PATH/TO/MANAGER/BLUEPRINT/FILE -i /PATH/TO/INPUTS/YAML/FILE`
 
 
+# Different ui tgz file
+
+The cloudify installer can override the inputs field for the webui-url.
+
+simply define environment variable CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL with the correct value and it will be injected..
+
 
 # Manual RBAC
 
