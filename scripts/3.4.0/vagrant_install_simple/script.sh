@@ -30,7 +30,7 @@ echo "INSTALL_SYSTEM_TESTS_REQ is $INSTALL_SYSTEM_TESTS_REQ"
 sudo yum install wget -y
 sudo yum install gcc -y
 #https://raw.githubusercontent.com/pypa/pip/develop/contrib/get-pip.py
-wget https://raw.githubusercontent.com/pypa/pip/develop/contrib/get-pip.py && sudo python get-pip.py && sudo yum install python-devel -y && sudo pip install virtualenv
+wget https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo yum install python-devel -y && sudo pip install virtualenv
 
 if [ "$SYSTEM_TESTS_VIRTUAL_ENV" == "" ]; then
     export SYSTEM_TESTS_VIRTUAL_ENV=`pwd`/myenv
