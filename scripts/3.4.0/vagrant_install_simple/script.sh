@@ -52,6 +52,9 @@ fi
 
 echo "CLOUDIFY_INSTALLER_TAG is $CLOUDIFY_INSTALLER_TAG"
 
+## NOTE: THIS IS A WORKAROUND INSTRUCTED BY DAN AT 8/FEB/2016
+## TODO: REVISIT DECISION
+pip install cloudify-script-plugin==1.3.1
 cfy init -r
 
 
