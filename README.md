@@ -61,6 +61,28 @@ for more details regarding the tasks available, please see `tasks` folder.
 
 to run with default configuration
 
+`cloudify-installer run_script -s 3.4.0/vagrant_install_simple/script.sh`
+
+available customizations
+
+```bash
+
+export CLOUDIFY_INSTALLER_TAG="master" # tag for cli. defaults to master
+export MANAGER_BRANCH="master" # branch for manager blueprint. defaults to $TAG
+export NODECELLAR_BRANCH="master" # branch for nodecellar-example. defaults to $TAG
+export INSTALL_SYSTEM_TESTS_REQ="true" # should we setup resources for tests? defaults to ''. if not empty then true.
+export TYPE="plain" # plain is the default value. will simply bootstrap cloudify
+export TYPE="security" # will enable built in security
+export TYPE="ssl" # will enable ssl - also requires security
+
+cloudify-installer run_script -s 3.4.0/vagrant_install_simple/script.sh
+
+```
+
+### Installing 3.3
+
+to run with default configuration
+
 `cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh`
 
 available customizations
