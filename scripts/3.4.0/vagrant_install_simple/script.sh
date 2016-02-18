@@ -112,6 +112,8 @@ if [ "${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}" != "" ]; then
     echo "using alternative webui url ${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}"
     echo "webui_source_url: \"${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}\"" >> $INPUT_FILE
     cat $INPUT_FILE
+else
+    echo "not overriding ui url"
 fi
 
 cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up-on-failure
