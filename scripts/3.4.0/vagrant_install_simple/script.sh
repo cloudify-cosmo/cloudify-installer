@@ -108,9 +108,9 @@ if [ ! -f $INPUTS_FILE ];then
     exit 1
 fi
 
-if [ "${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}" != "" ]; then
+if [ "${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}" != "" ]; then
     echo "using alternative webui url ${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}"
-    echo "webui_source_url: \"${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}\"" >> $INPUTS_FILE
+    echo "webui_source_url: \"${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}\"" >> $INPUTS_FILE
     cat $INPUTS_FILE
 else
     echo "not overriding ui url"
