@@ -136,5 +136,6 @@ if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     cfy deployments create -b nodecellar1 -d deployment_to_delete --inputs ${NODECELLAR_INPUTS_FILE}
     cfy deployments create -b nodecellar1 -d installed_deployment --inputs ${NODECELLAR_INPUTS_FILE}
     cfy deployments create -b nodecellar1 -d installed_deployment2 --inputs ${NODECELLAR_INPUTS_FILE}
+    cfy deployments create -b nodecellar1 -d hotkeys_deployment --inputs ${NODECELLAR_INPUTS_FILE}
     #cfy executions start -w install -d installed_deployment
 fi
