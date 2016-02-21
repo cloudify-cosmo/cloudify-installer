@@ -75,6 +75,8 @@ export TYPE="plain" # plain is the default value. will simply bootstrap cloudify
 export TYPE="security" # will enable built in security
 export TYPE="ssl" # will enable ssl - also requires security
 
+export CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL="http://some.custom/webui/url.tar.gz"
+
 cloudify-installer run_script -s 3.4.0/vagrant_install_simple/script.sh
 
 ```
