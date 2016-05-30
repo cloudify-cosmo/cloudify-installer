@@ -128,11 +128,13 @@ cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up
 # cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.tar.gz -b nodecellar1 -n simple-blueprint.yaml
 
 if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
-
+    RESOURCES_PATH=$(npm config get prefix)/lib/node_modules/cloudify-installer/resources
     echo "publishing nodecellar1"
     echo $(cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/${NODECELLAR_BRANCH}.tar.gz -b nodecellar1 -n simple-blueprint.yaml)
     echo "publishing nodecellar_undeployed"
     echo $(cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/${NODECELLAR_BRANCH}.tar.gz -b nodecellar_undeployed -n simple-blueprint.yaml)
+    echo "publishing groups"
+    echo $(cfy blueprints publish-archive -l $RESOURCES_PATH/nested-groups.tar.gz -b groups)
     NODECELLAR_INPUTS_FILE=${DIR}/nodecellar_${USER}_inputs.yaml
     echo "deploying deployment_to_delete from nodecellar1"
     echo $(cfy deployments create -b nodecellar1 -d deployment_to_delete --inputs ${NODECELLAR_INPUTS_FILE})
@@ -143,4 +145,6 @@ if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     echo "deploying hotkeys_deployment from nodecellar1"
     echo $(cfy deployments create -b nodecellar1 -d hotkeys_deployment --inputs ${NODECELLAR_INPUTS_FILE})
     #cfy executions start -w install -d installed_deployment
+    echo "deploying groups from groups"
+    echo $(cfy deployments create -b groups -d groups --inputs ${NODECELLAR_INPUTS_FILE})
 fi
