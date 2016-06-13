@@ -135,6 +135,8 @@ if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     echo $(cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/${NODECELLAR_BRANCH}.tar.gz -b nodecellar_undeployed -n simple-blueprint.yaml)
     echo "publishing groups"
     echo $(cfy blueprints publish-archive -l $RESOURCES_PATH/nested-groups.tar.gz -b groups)
+    echo "publishing bomber"
+    echo $(cfy blueprints publish-archive -l $RESOURCES_PATH/bomber.tar.gz -b bomber)
     NODECELLAR_INPUTS_FILE=${DIR}/nodecellar_${USER}_inputs.yaml
     echo "deploying deployment_to_delete from nodecellar1"
     echo $(cfy deployments create -b nodecellar1 -d deployment_to_delete --inputs ${NODECELLAR_INPUTS_FILE})
@@ -147,4 +149,8 @@ if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     #cfy executions start -w install -d installed_deployment
     echo "deploying groups from groups"
     echo $(cfy deployments create -b groups -d groups --inputs ${NODECELLAR_INPUTS_FILE})
+    echo "deploying bomber from bomber"
+    echo $(cfy deployments create -b bomber -d bomber)
+    echo "running install workflow on bomber"
+    echo $(cfy executions start -w install -d bomber)
 fi
