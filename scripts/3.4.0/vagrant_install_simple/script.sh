@@ -133,6 +133,8 @@ if [ "$INSTALL_SYSTEM_TESTS_REQ" = "true" ]; then
     echo $(cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/${NODECELLAR_BRANCH}.tar.gz -b nodecellar1 -n simple-blueprint.yaml)
     echo "publishing nodecellar_undeployed"
     echo $(cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/${NODECELLAR_BRANCH}.tar.gz -b nodecellar_undeployed -n simple-blueprint.yaml)
+    echo "publishing nodecellar_to_update"
+    echo $(cfy blueprints publish-archive -l https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.4m5.zip -b nodecellar_to_update -n simple-blueprint.yaml)
     echo "publishing groups"
     echo $(cfy blueprints publish-archive -l $RESOURCES_PATH/nested-groups.tar.gz -b groups)
     echo "publishing bomber"
