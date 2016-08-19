@@ -176,7 +176,7 @@ See all commands by running `cloudify-installer --help`
     - You should fill **keystone_username**,**keystone_password** and **keystone_tenant_name** fields with your credentials
     - Notice that every value that start with 'eden' should be replace to your name.
 - Bootstrap!
-    `cfy init && cfy bootstrap --install-plugins -p /PATH/TO/MANAGER/BLUEPRINT/FILE -i /PATH/TO/INPUTS/YAML/FILE`
+    `cfy init && cfy bootstrap --install-plugins /PATH/TO/MANAGER/BLUEPRINT/FILE -i /PATH/TO/INPUTS/YAML/FILE`
 
 
 # Different ui tgz file
