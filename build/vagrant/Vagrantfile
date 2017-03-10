@@ -1,7 +1,13 @@
-
 Vagrant.configure(2) do |config|
 
-
+  require 'rbconfig'
+  include RbConfig
+  if RbConfig::CONFIG['arch'] == 'i386-mingw32' then
+    ENV['VAGRANT_DETECTED_OS'] = 'cygwin'
+    puts 'Cygwin terminal detected'
+  else
+    puts 'Non-cygwin terminal detected'
+  end
 
   # config.vm.define "ubuntu" do |machine|
   #   machine.vm.box = "cloudify-installer-build-ubuntu"
@@ -15,7 +21,10 @@ Vagrant.configure(2) do |config|
     config.vm.network :private_network, ip: "10.10.1.10"
   # end
 
-  config.vm.synced_folder "./synced_folder", "/vagrant", type: "rsync"
+  hostpath = "./synced_folder"
+  guestpath = "/vagrant"
+
+  config.vm.synced_folder hostpath, guestpath, type: "rsync"
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 4096
