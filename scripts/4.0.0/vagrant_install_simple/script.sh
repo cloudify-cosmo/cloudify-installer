@@ -116,7 +116,7 @@ else
     echo "not overriding ui url"
 fi
 
-cfy bootstrap -v -p $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up-on-failure
+cfy bootstrap -v $BLUEPRINT_FILE  -i $INPUTS_FILE --install-plugins --keep-up-on-failure
 
 # UI_BLUEPRINT_URL="https://s3.amazonaws.com/cloudify-ui-automations/cloudify-ui-blueprint/builds/3.3/blueprint.tar.gz"
 # cfy blueprints publish-archive -l "$UI_BLUEPRINT_URL" -b cloudify-ui -n singlehost.yaml
