@@ -5,5 +5,3 @@ ssh_key_filename: '~/.ssh/id_rsa'
 
 agents_user: 'centos'
 resources_prefix: ''
-
-manager_resources_package: 'http://repository.cloudifysource.org/cloudify/4.0.0/m15-release/cloudify-manager-resources_4.0.0-m15.tar.gz'

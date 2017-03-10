@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         cfy: {
             install: {
                 'cmd' : 'run_script',
-                'script' : '4.0.0/vagrant_install_simple/script.sh',
+                'script' : '3.2.0/vagrant_install_simple/script.sh',
                 'args' : [],
                 options: {
                     env: {
