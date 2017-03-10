@@ -44,10 +44,10 @@ virtualenv $SYSTEM_TESTS_VIRTUAL_ENV && source $SYSTEM_TESTS_VIRTUAL_ENV/bin/act
 
 
 if [ "$TAG" = "pip" ];then
-    pip install cloudify --pre
+    python get-cloudify.py --pre
 else
     echo "installing cli from tag $TAG"
-    pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/$TAG.zip -r https://raw.githubusercontent.com/cloudify-cosmo/cloudify-cli/$TAG/dev-requirements.txt
+    python get-cloudify.py --version $TAG
 fi
 
 echo "TAG is $TAG"
